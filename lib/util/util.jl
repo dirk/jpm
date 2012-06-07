@@ -11,5 +11,3 @@ function jpm_get_package_json(package_name)
   contents = jpm_read_file(fname)
   return parse_json(contents)
 end
-
-

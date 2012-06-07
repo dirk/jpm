@@ -59,6 +59,8 @@ function load_package(package_name)
   function _parse_file_into_exprs_and_execute(fname)
     _exprs = _parse_file_into_exprs(fname)
     
+    # Creating an anonymous function to contain the scope
+    # See: https://groups.google.com/d/topic/julia-dev/iqaP3hXmNMM/discussion
     _anon_func_expr = Expr(:function, {
       Expr(:call, {symbol("_package")}, Any),
       Expr(:block, _exprs, Any)

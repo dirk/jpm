@@ -16,11 +16,19 @@ function jpm_main()
     arguments = map(strip, ARGS)
     command = arguments[1]
     if command == "help" || command == "-h" || command == "--help"
-      jpm_help()
+      if length(ARGS) >= 2
+        jpm_help(string(ARGS[2])) # Help with a topic
+      else
+        jpm_help() # Generic help
+      end
     elseif command == "info"
       jpm_info(arguments[2])
     elseif command == "install"
-      jpm_install_global(arguments[2])
+      if length(ARGS) > 2
+        jpm_install_global(arguments[2])
+      else
+        jpm_install_dependencies()
+      end
     elseif command == "install-local"
       jpm_install_local(arguments[2])
     else

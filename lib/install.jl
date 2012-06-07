@@ -40,3 +40,14 @@ function jpm_install_local(package_name)
   run(`mkdir -p $packages_dir`)
   jpm_install(package_name, strcat(packages_dir,"/",package_name))
 end
+
+function jpm_install_dependencies()
+  current_dir = cwd()
+  package = parse_json(jpm_read_file(strcat(current_dir,"/package.json")))
+  
+  if has(package, "dependencies")
+    println("Not implemented yet!") # TODO
+  else
+    println("package.json did not specify any dependencies.")
+  end
+end
