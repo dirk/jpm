@@ -71,7 +71,11 @@ function load_package(package_name)
   end
   
   fname = strcat(package_dir,"/lib/",package_name,".jl")
-  _parse_file_into_exprs_and_execute(fname)
+  if has(package, "enclose") && package["enclose"] == false
+    load(fname)
+  else
+    _parse_file_into_exprs_and_execute(fname)
+  end
   
   exports = nothing
   

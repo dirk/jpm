@@ -1,5 +1,5 @@
 
-jpm_help_topics = {"installing (install)", "information (info)"}
+jpm_help_topics = {"installing (install)", "information (info)", "json"}
 
 function jpm_help(topic::String)
   if topic == "installing" || topic == "install"
@@ -29,6 +29,20 @@ function jpm_help(topic::String)
         "\n"
       )#join
     )#puts
+  elseif topic == "json"
+    puts(
+      join(
+        [
+          "Available options in package.json:\n",
+          "  name: The name of the package.\n",
+          "  enclose: Whether or not to wrap the package in an anonymous",
+          "           function to prevent variables from leaking.",
+          "\n"
+        ],
+        "\n"
+      )#join
+    )#puts
+    
   else
     if topic != "topics"
       puts("Help topic '$topic' not found.\n")
