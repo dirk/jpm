@@ -1,5 +1,8 @@
+
+load(JPM_PATH + "/lib/jpm/package.jl")
+
 function load_package(package_name)
-  package = jpm_get_package_json(package_name)
+  package = jpm_get_registry_package_json(package_name)
   current_dir = cwd()
   local_package_dir = strcat(current_dir,"/julia_packages/",package_name)
   global_package_dir = strcat(JPM_PACKAGES,"/",package_name)

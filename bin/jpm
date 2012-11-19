@@ -1,7 +1,13 @@
 #!/usr/bin/env julia
 
 # Configure this after installing!
-JPM_PATH = "/projects/julia/jpm"
-JPM_PACKAGES = "/usr/local/julia_packages"
-load(strcat(JPM_PATH,"/lib/jpm.jl"))
-jpm_main()
+module JPMConfig
+  path = "/projects/julia/jpm"
+  packages = "/usr/local/julia_packages"
+  
+  export path
+  export packages
+end
+load(strcat(JPMConfig.path, "/lib/jpm.jl"))
+#jpm_main()
+JPM.main()

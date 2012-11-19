@@ -6,5 +6,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/dirk/jpm_example_package.git"
-  }
+  },
+  "module": true
 }

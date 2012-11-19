@@ -1,17 +1,29 @@
 
-load(strcat(JPM_PATH,"/lib/util/json.jl"))
-load(strcat(JPM_PATH,"/lib/util/util.jl"))
+module JPM
+
+import JPMConfig
+JPM_PATH = JPMConfig.path
+JPM_PACKAGES = JPMConfig.packages
+
+export main
+using Base
+
+load(strcat(JPM_PATH, "/lib/jpm/util/string.jl"))
+#load(JPM_PATH + "/lib/jpm/util/json.jl")
+require("extras/json.jl")
+load(JPM_PATH + "/lib/jpm/util/util.jl")
+load(JPM_PATH + "/lib/jpm/util/filesystem.jl")
 
 # Core functionality to load packages
-load(strcat(JPM_PATH,"/lib/core.jl"))
+load(JPM_PATH + "/lib/jpm/core.jl")
+
+# Pull in the command files
+load(JPM_PATH + "/lib/jpm/commands/help.jl")
+load(JPM_PATH + "/lib/jpm/commands/info.jl")
+load(JPM_PATH + "/lib/jpm/commands/install.jl")
 
 # It's being called from the command-line
-function jpm_main()
-  # Pull in the command files
-  load(strcat(JPM_PATH,"/lib/help.jl"))
-  load(strcat(JPM_PATH,"/lib/info.jl"))
-  load(strcat(JPM_PATH,"/lib/install.jl"))
-  
+function main()
   if length(ARGS) > 0
     arguments = map(strip, ARGS)
     command = arguments[1]
@@ -22,13 +34,19 @@ function jpm_main()
         jpm_help() # Generic help
       end
     elseif command == "info"
-      jpm_info(arguments[2])
+      if length(arguments) != 2
+        puts("Package name required")
+      else
+        jpm_info(arguments[2])
+      end
     elseif command == "install"
-      if length(ARGS) > 2
+      if length(ARGS) >= 2
         jpm_install_global(arguments[2])
       else
         jpm_install_dependencies()
       end
+    elseif command == "search"
+      jpm_search(arguments[2])
     elseif command == "install-local"
       jpm_install_local(arguments[2])
     else
@@ -37,4 +55,6 @@ function jpm_main()
   else
     jpm_help()
   end
+end
+
 end

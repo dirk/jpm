@@ -94,7 +94,8 @@ function parse_json(strng::String)
             #     str = strcat(str, strng[pos:esc(index_esc)-1]);
             #     pos = esc(index_esc);
             # end
-            nc::Char = strng[pos]
+            #nc::Char = strng[pos]
+            nc = strng[pos]
             if nc == '"' 
                     pos = pos + 1;
                     return string(str);
@@ -137,7 +138,8 @@ function parse_json(strng::String)
     end
 
     function  parse_value()
-        nc::Char = strng[pos]
+        #nc::Char = strng[pos]
+        nc = strng[pos]
         if nc == '"'
                 val = parse_string();
                 return val;
